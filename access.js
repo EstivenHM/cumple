@@ -43,10 +43,16 @@
         input.disabled = true;
         try {
             document.body.innerHTML = await decrypt(input.value);
-            const questionsLink = document.createElement('div');
-            questionsLink.className = 'Menu-header questions-link';
-            questionsLink.innerHTML = '<a href="preguntas.html" aria-label="Abrir preguntas y respuestas"><span>Preguntas y respuestas</span></a>';
-            document.body.insertBefore(questionsLink, document.body.firstChild);
+            const links = [
+                ['preguntas.html', 'Preguntas y respuestas'],
+                ['Eventos.html', 'Calendario']
+            ];
+            links.reverse().forEach(function ([href, label]) {
+                const link = document.createElement('div');
+                link.className = 'Menu-header questions-link';
+                link.innerHTML = '<a href="' + href + '"><span>' + label + '</span></a>';
+                document.body.insertBefore(link, document.body.firstChild);
+            });
             sessionStorage.setItem('access-granted', 'true');
         } catch (exception) {
             error.textContent = 'Codigo incorrecto.';
